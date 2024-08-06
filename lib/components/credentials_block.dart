@@ -93,97 +93,108 @@ class _CredentialsBlockState extends State<CredentialsBlock>
 
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-     mainAxisAlignment: MainAxisAlignment.start,
-     children: [
-       SlideTransition(
-         position: _logoAnimation,
-         child: Stack(
-           children: [
-             Image.asset('assets/images/splash.png', width: 240,),
-             Positioned(
-                 top: 25,
-                 left: 0,
-                 right: 0,
-                 bottom: 0,
-               child: SlideTransition(
-                 position: _firstLogoAnimation,
-                 child: AnimatedOpacity(
-                   duration: const Duration(seconds: 1),
-                   opacity: _opacity,
-                   child: Image.asset('assets/images/instock.png',width: 50)),
-               )),
-           ],
-         ),
-       ),
-       _isLoaded
-           ? SlideTransition(
-               position: _slideAnimation,
-               child: Column(
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 mainAxisAlignment: MainAxisAlignment.start,
-                 children: [
-                   const CredentialsTextFIeld(
-                     hintText: 'Email Address',
-                     prefixIcon: Icons.person_3_outlined,
-                     obscureText: false,
-                   ),
-                   const SizedBox(height: 20),
-                   const CredentialsTextFIeld(
-                     hintText: 'Password',
-                     prefixIcon: Icons.key,
-                     obscureText: true,
-                     suffixIcon: Icons.visibility_off_outlined,
-                   ),
-                   const SizedBox(height: 20),
-                   CustomElevatedButton(
-                     foregroundColor: Colors.white,
-                     backgroundColor: Colors.purple.shade900,
-                     borderColor: Colors.purple.shade900,
-                     text: 'Login',
-                   ),
-                   const SizedBox(height: 20),
-                   const Text(
-                     'Forgot Password?',
-                     style: TextStyle(
-                       color: Colors.pink,
-                       fontSize: 14,
-                       decoration: TextDecoration.underline,
-                     ),
-                   ),
-                   const SizedBox(height: 70),
-                   Text(
-                     'You don\'t have an account?',
-                     style: TextStyle(
-                       color: Colors.grey.shade800,
-                       fontSize: 13,
-                     ),
-                   ),
-                   const SizedBox(height: 20),
-                   const CustomElevatedButton(
-                       foregroundColor: Colors.pink,
-                       backgroundColor: Colors.white,
-                       borderColor: Colors.pink,
-                       text: 'Create new account'),
-                   const SizedBox(height: 50),
-                 ],
-               ),
-             )
-           : AnimatedBuilder(
-               animation: _progressAnimation,
-               builder: (context, child) {
-                 return SizedBox(
-                  width:200,
-                   child: LinearProgressIndicator(
-                     value: _progressAnimation.value,
-                     backgroundColor: Colors.grey[300],
-                     valueColor: const AlwaysStoppedAnimation<Color>(Colors.pink),
-                   ),
-                 );
-               },
-             )
-     ],
-          );
-  }
+Widget build(BuildContext context) {
+  return Stack(
+    children: [
+      Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SlideTransition(
+            position: _logoAnimation,
+            child: Stack(
+              children: [
+                Image.asset('assets/images/splash.png', width: 240),
+                Positioned(
+                  top: 25,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: SlideTransition(
+                    position: _firstLogoAnimation,
+                    child: AnimatedOpacity(
+                      duration: const Duration(seconds: 1),
+                      opacity: _opacity,
+                      child: Image.asset('assets/images/instock.png', width: 50),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          _isLoaded
+              ? SlideTransition(
+                  position: _slideAnimation,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const CredentialsTextFIeld(
+                        hintText: 'Email Address',
+                        prefixIcon: Icons.person_3_outlined,
+                        obscureText: false,
+                      ),
+                      const SizedBox(height: 20),
+                      const CredentialsTextFIeld(
+                        hintText: 'Password',
+                        prefixIcon: Icons.key,
+                        obscureText: true,
+                        suffixIcon: Icons.visibility_off_outlined,
+                      ),
+                      const SizedBox(height: 20),
+                      CustomElevatedButton(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.purple.shade900,
+                        borderColor: Colors.purple.shade900,
+                        text: 'Login',
+                      ),
+                      const SizedBox(height: 20),
+                      const Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                          color: Colors.pink,
+                          fontSize: 14,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                      const SizedBox(height: 70),
+                      Text(
+                        'You don\'t have an account?',
+                        style: TextStyle(
+                          color: Colors.grey.shade800,
+                          fontSize: 13,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const CustomElevatedButton(
+                        foregroundColor: Colors.pink,
+                        backgroundColor: Colors.white,
+                        borderColor: Colors.pink,
+                        text: 'Create new account',
+                      ),
+                      const SizedBox(height: 50),
+                    ],
+                  ),
+                )
+              : const SizedBox.shrink(),
+        ],
+      ),
+      if (!_isLoaded)
+        Positioned(
+          bottom: 50,
+          left: 0,
+          right: 0,
+          child: AnimatedBuilder(
+            animation: _progressAnimation,
+            builder: (context, child) {
+              return LinearProgressIndicator(
+                value: _progressAnimation.value,
+                backgroundColor: Colors.grey[300],
+                valueColor: const AlwaysStoppedAnimation<Color>(Colors.pink),
+              );
+            },
+          ),
+        ),
+    ],
+  );
 }
+    }
